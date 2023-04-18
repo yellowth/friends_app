@@ -13,8 +13,8 @@ const NavBar = () => {
                         Home
                     </Link>
                 </li>
-                <li className={router.pathname === '/about' ? styles.active : ''}>
-                    <Link href="/about">
+                <li className={router.pathname === '/friends' ? styles.active : ''}>
+                    <Link href="/friends">
                         Friends
                     </Link>
                 </li>
