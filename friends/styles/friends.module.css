@@ -224,24 +224,14 @@
     animation: growFade 1.5s infinite alternate;
 }
 
-.friendItemLoaded {
-    height: 100%;
-    width: 100%;
-    opacity: 1;
-    transition: height 1s, width 1s, opacity 1s;
-}
-
-
 @keyframes growFade {
     from {
-        height: 100%;
-        width: 100%;
+
         opacity: 1;
     }
 
     to {
-        height: 90%;
-        width: 90%;
+
         opacity: 0;
     }
 }
