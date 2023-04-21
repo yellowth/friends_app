@@ -142,41 +142,39 @@ const Friends = () => {
                 <button className={styles.clearAll} onClick={clearFiltersNow}>Clear all</button>
               </div>
               {showFilterMenu && (
-                <div style={{ padding: '1rem' }}>
-                  <div ref={filterMenuRef} className={styles.filterMenu}>
-                    <div className={styles.filterHeader}>
-                      <button className={styles.clearAll} onClick={clearFilters}>Clear all</button>
-                      <h4>Filter</h4>
-                      <Image src={close} alt="CloseButton" onClick={toggleFilterMenu} style={{ cursor: 'pointer' }} />
-                    </div>
-                    <div style={{ marginRight: '15px' }}>
-                      <p style={{ marginLeft: '12px', marginTop: '20px', color: '#686868', fontSize: '14px' }}>Friend Status</p>
-                    </div>
-                    <div className={styles.checkboxContainer}>
-                      <label htmlFor="closeFriends">Close Friends</label>
-                      <input
-                        type="checkbox"
-                        id="closeFriends"
-                        value="Close Friends"
-                        checked={tempSelectedFilters.includes("Close Friends")}
-                        onChange={handleFilterChange}
-                      />
-                    </div>
-                    <div className={styles.checkboxContainer}>
-                      <label htmlFor="superCloseFriends">Super Close Friends</label>
-                      <input
-                        type="checkbox"
-                        id="superCloseFriends"
-                        value="Super Close Friends"
-                        checked={tempSelectedFilters.includes("Super Close Friends")}
-                        onChange={handleFilterChange}
-                      />
-                    </div>
 
-                    <button className={styles.applyButton} onClick={applyFilters}>Apply</button>
+                <div ref={filterMenuRef} className={styles.filterMenu}>
+                  <div className={styles.filterHeader}>
+                    <button className={styles.clearAll} onClick={clearFilters}>Clear all</button>
+                    <h4>Filter</h4>
+                    <Image src={close} alt="CloseButton" onClick={toggleFilterMenu} style={{ cursor: 'pointer' }} />
                   </div>
-                </div>
+                  <div style={{ marginRight: '15px' }}>
+                    <p style={{ marginLeft: '12px', marginTop: '20px', color: '#686868', fontSize: '14px' }}>Friend Status</p>
+                  </div>
+                  <div className={styles.checkboxContainer}>
+                    <label htmlFor="closeFriends">Close Friends</label>
+                    <input
+                      type="checkbox"
+                      id="closeFriends"
+                      value="Close Friends"
+                      checked={tempSelectedFilters.includes("Close Friends")}
+                      onChange={handleFilterChange}
+                    />
+                  </div>
+                  <div className={styles.checkboxContainer}>
+                    <label htmlFor="superCloseFriends">Super Close Friends</label>
+                    <input
+                      type="checkbox"
+                      id="superCloseFriends"
+                      value="Super Close Friends"
+                      checked={tempSelectedFilters.includes("Super Close Friends")}
+                      onChange={handleFilterChange}
+                    />
+                  </div>
 
+                  <button className={styles.applyButton} onClick={applyFilters}>Apply</button>
+                </div>
               )}
             </div>
             {loading ? (
