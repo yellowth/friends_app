@@ -1,4 +1,4 @@
-# Infinite Scrolling Next.js App
+# Friends App on Next.js
 
 This repository contains my code for the Front-End challenge 
 for Clerkie. This is an infinite scrolling Next.js app based on a provided Figma design.
