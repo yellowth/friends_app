@@ -77,6 +77,13 @@
     color: #ABABAB;
     font-size: 14px;
     height: 10%;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.friendItem:hover {
+    background-color: #D7D7D7;
+    color: #777777;
 }
 
 .friendItem h2 {
@@ -86,12 +93,13 @@
 
 .friendHeader {
     display: flex;
+    justify-content: flex-start;
     align-items: center;
-    justify-content: space-between;
 }
 
-.friendStatus {
+.status {
     font-size: 12px;
+    margin-left: 5px;
 }
 
 .closeFriendsStatus {
@@ -148,4 +156,39 @@
 
 .currentPage {
     color: black;
+}
+
+.backbutton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.backbutton:hover {
+    color: #777777;
+}
+
+.backbutton:active {
+    color: #484848;
+}
+
+
+/* loading animations */
+.shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 27px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }

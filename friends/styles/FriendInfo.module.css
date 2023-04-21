@@ -1,0 +1,101 @@
+.friendItem {
+    display: block;
+    outline: #D7D7D7;
+    outline-style: solid;
+    border-radius: 6px;
+    padding: 1rem;
+    text-decoration: none;
+    color: #555555;
+    font-size: 15px;
+    height: 10%;
+    transition: all 0.2s ease-in-out;
+}
+
+.friendItem h1 {
+    color: black;
+}
+
+.friendHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.status {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.closeFriendsStatus {
+    color: #3399FF;
+    background-color: #DFEFFF;
+    border-radius: 21px;
+    padding: 0.25rem 0.5rem;
+}
+
+.superCloseFriendsStatus {
+    color: #19B444;
+    background-color: #DCFFE6;
+    border-radius: 21px;
+    padding: 0.25rem 0.5rem;
+}
+
+.clearAll {
+    background: none;
+    border: none;
+    color: #D7D7D7;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.2s ease-in-out;
+}
+
+.clearAll:hover {
+    color: #a0a0a0;
+}
+
+.clearAll:active {
+    color: #777777;
+}
+
+
+.button {
+    background: none;
+    border: none;
+    color: #D7D7D7;
+    cursor: pointer;
+}
+
+.button img {
+    height: 37px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.pageButton {
+    background: none;
+    border: none;
+    color: #ABABAB;
+    cursor: pointer;
+    margin: 0 0.25rem;
+}
+
+.currentPage {
+    color: black;
+}
+
+/* loading animations */
+.shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 27px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

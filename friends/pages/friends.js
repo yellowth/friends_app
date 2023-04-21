@@ -10,6 +10,7 @@ import filter from "../public/filter.svg";
 import filteractive from "../public/filteractive.svg";
 import divider from "../public/divider.svg";
 import close from "../public/close.svg";
+import { FaArrowLeft } from "react-icons/fa";
 
 const useOutsideClick = (ref, buttonRef, callback) => {
   const handleClick = (e) => {
@@ -106,7 +107,7 @@ const Friends = () => {
   return (
     <Layout>
       <Topbar title='Friends' />
-      <div>
+      <div style={{ paddingLeft: '16%', paddingRight: '16%' }}>
         {!selectedFriend ? (
           <>
             <div style={{ marginTop: 75 }}>
@@ -123,8 +124,6 @@ const Friends = () => {
                   )}
                 </button>
 
-
-
                 <Image src={divider} alt="FilterButton" style={{ margin: 5 }} />
                 <button className={styles.clearAll} onClick={clearFiltersNow}>Clear all</button>
               </div>
@@ -133,7 +132,7 @@ const Friends = () => {
                   <div className={styles.filterHeader}>
                     <button className={styles.clearAll} onClick={clearFilters}>Clear all</button>
                     <h4>Filter</h4>
-                    <Image src={close} alt="CloseButton" onClick={toggleFilterMenu} />
+                    <Image src={close} alt="CloseButton" onClick={toggleFilterMenu} style={{ cursor: 'pointer' }} />
                   </div>
                   <div style={{ marginRight: '15px' }}>
                     <p style={{ marginLeft: '12px', marginTop: '20px', color: '#686868', fontSize: '14px' }}>Friend Status</p>
@@ -165,7 +164,16 @@ const Friends = () => {
               )}
             </div>
             {loading ? (
-              <p>Loading...</p>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {Array.from({ length: 7 }, (_, i) => (
+                  <li style={{ marginBottom: '1rem' }}>
+                    <div key={i} className={styles.friendItem}>
+                      <div className={styles.shimmer} style={{ height: '20px', width: '50%', marginBottom: '0.5rem' }}></div>
+                      <div className={styles.shimmer} style={{ height: '15px', width: '100%', marginBottom: '0.5rem' }}></div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             ) : (
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 {filteredFriends.map((friend) => (
@@ -174,9 +182,11 @@ const Friends = () => {
                       <div className={styles.friendHeader}>
                         <h2>{friend.name}</h2>
                         {friend.friendStatus != null && (
-                          <p className={`${styles.friendStatus} ${friend.friendStatus === "Close Friends" ? styles.closeFriendsStatus : friend.friendStatus === "Super Close Friends" ? styles.superCloseFriendsStatus : ""}`}>
-                            {friend.friendStatus}
-                          </p>
+                          <div className={styles.status}>
+                            <p className={`${styles.status} ${friend.friendStatus === "Close Friends" ? styles.closeFriendsStatus : friend.friendStatus === "Super Close Friends" ? styles.superCloseFriendsStatus : ""}`}>
+                              {friend.friendStatus}
+                            </p>
+                          </div>
                         )}
 
                       </div>
@@ -202,8 +212,7 @@ const Friends = () => {
           </>
         ) : (
           <div style={{ marginTop: 80 }}>
-            {/* Render the selected friend's details */}
-            <button onClick={goBackToList}>Back</button>
+            <button onClick={goBackToList} className={styles.backbutton} ><FaArrowLeft /></button>
             <FriendInfo email={selectedFriend.email} />
           </div>
         )}
