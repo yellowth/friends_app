@@ -1,10 +1,10 @@
-import styles from './Layout.module.css';
-import NavBar from './NavBar';
+import styles from '@/styles/Layout.module.css';
+import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => {
     return (
         <div>
-            <NavBar />
+            <Sidebar />
             <main className={styles.main}>{children}</main>
         </div>
     );

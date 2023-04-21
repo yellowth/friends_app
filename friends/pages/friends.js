@@ -1,11 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-import Layout from "../components/Layout";
+import Layout from "@/components/Layout";
+import Topbar from "@/components/Topbar";
+import FriendInfo from "@/components/FriendInfo";
 import { fetchFriendsByPage } from "../mockapi";
 import Link from "next/link";
+import styles from '@/styles/friends.module.css'
+import Image from 'next/image';
+import filter from "../public/filter.svg";
+import filteractive from "../public/filteractive.svg";
+import divider from "../public/divider.svg";
+import close from "../public/close.svg";
 
-const useOutsideClick = (ref, callback) => {
+const useOutsideClick = (ref, buttonRef, callback) => {
   const handleClick = (e) => {
-    if (ref.current && !ref.current.contains(e.target)) {
+    if (ref.current && !ref.current.contains(e.target) && !buttonRef.current.contains(e.target)) {
       callback();
     }
   };
@@ -19,6 +27,7 @@ const useOutsideClick = (ref, callback) => {
   });
 };
 
+
 const Friends = () => {
   const [friends, setFriends] = useState([]);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
@@ -27,8 +36,9 @@ const Friends = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const filterMenuRef = useRef();
+  const filterButtonRef = useRef();
   const [totalFriends, setTotalFriends] = useState(0);
-
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +56,7 @@ const Friends = () => {
     setShowFilterMenu(!showFilterMenu);
   };
 
-  useOutsideClick(filterMenuRef, () => {
+  useOutsideClick(filterMenuRef, filterButtonRef, () => {
     setShowFilterMenu(false);
   });
 
@@ -85,59 +95,118 @@ const Friends = () => {
     setCurrentPage(page);
   };
 
+  const showFriendDetails = (friend) => {
+    setSelectedFriend(friend);
+  };
+
+  const goBackToList = () => {
+    setSelectedFriend(null);
+  };
+
   return (
     <Layout>
-      <h1>Friends</h1>
+      <Topbar title='Friends' />
       <div>
-        <button onClick={toggleFilterMenu}>Filter</button>
-        <button onClick={clearFiltersNow}>Clear all</button>
-        {showFilterMenu && (
-          <div ref={filterMenuRef}>
-            <div>
-              <input
-                type="checkbox"
-                id="closeFriends"
-                value="Close Friends"
-                checked={tempSelectedFilters.includes("Close Friends")}
-                onChange={handleFilterChange}
-              />
-              <label htmlFor="closeFriends">Close Friends</label>
+        {!selectedFriend ? (
+          <>
+            <div style={{ marginTop: 75 }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <button
+                  ref={filterButtonRef}
+                  className={styles.button}
+                  onClick={toggleFilterMenu}
+                >
+                  {!showFilterMenu ? (
+                    <Image src={filter} alt="FilterButton" />
+                  ) : (
+                    <Image src={filteractive} alt="FilterButton" />
+                  )}
+                </button>
+
+
+
+                <Image src={divider} alt="FilterButton" style={{ margin: 5 }} />
+                <button className={styles.clearAll} onClick={clearFiltersNow}>Clear all</button>
+              </div>
+              {showFilterMenu && (
+                <div ref={filterMenuRef} className={styles.filterMenu}>
+                  <div className={styles.filterHeader}>
+                    <button className={styles.clearAll} onClick={clearFilters}>Clear all</button>
+                    <h4>Filter</h4>
+                    <Image src={close} alt="CloseButton" onClick={toggleFilterMenu} />
+                  </div>
+                  <div style={{ marginRight: '15px' }}>
+                    <p style={{ marginLeft: '12px', marginTop: '20px', color: '#686868', fontSize: '14px' }}>Friend Status</p>
+                  </div>
+                  <div className={styles.checkboxContainer}>
+                    <label htmlFor="closeFriends">Close Friends</label>
+                    <input
+                      type="checkbox"
+                      id="closeFriends"
+                      value="Close Friends"
+                      checked={tempSelectedFilters.includes("Close Friends")}
+                      onChange={handleFilterChange}
+                    />
+                  </div>
+                  <div className={styles.checkboxContainer}>
+                    <label htmlFor="superCloseFriends">Super Close Friends</label>
+                    <input
+                      type="checkbox"
+                      id="superCloseFriends"
+                      value="Super Close Friends"
+                      checked={tempSelectedFilters.includes("Super Close Friends")}
+                      onChange={handleFilterChange}
+                    />
+                  </div>
+
+                  <button className={styles.applyButton} onClick={applyFilters}>Apply</button>
+                </div>
+
+              )}
             </div>
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {filteredFriends.map((friend) => (
+                  <li key={friend.email} style={{ marginBottom: '1rem' }}>
+                    <div className={styles.friendItem} onClick={() => showFriendDetails(friend)}>
+                      <div className={styles.friendHeader}>
+                        <h2>{friend.name}</h2>
+                        {friend.friendStatus != null && (
+                          <p className={`${styles.friendStatus} ${friend.friendStatus === "Close Friends" ? styles.closeFriendsStatus : friend.friendStatus === "Super Close Friends" ? styles.superCloseFriendsStatus : ""}`}>
+                            {friend.friendStatus}
+                          </p>
+                        )}
+
+                      </div>
+                      <div>
+                        <p>{friend.email}&nbsp;&nbsp;•&nbsp;&nbsp;{friend.phoneNumber}</p>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>)}
             <div>
-              <input
-                type="checkbox"
-                id="superCloseFriends"
-                value="Super Close Friends"
-                checked={tempSelectedFilters.includes("Super Close Friends")}
-                onChange={handleFilterChange}
-              />
-              <label htmlFor="superCloseFriends">Super Close Friends</label>
+              {pageButtons.map((page) => (
+                <button
+                  key={page}
+                  onClick={() => goToPage(page)}
+                  className={`${styles.pageButton} ${page === currentPage ? styles.currentPage : ""}`}
+                >
+                  {page}
+                </button>
+
+              ))}
             </div>
-            <button onClick={clearFilters}>Clear all</button>
-            <button onClick={applyFilters}>Apply</button>
+          </>
+        ) : (
+          <div style={{ marginTop: 80 }}>
+            {/* Render the selected friend's details */}
+            <button onClick={goBackToList}>Back</button>
+            <FriendInfo email={selectedFriend.email} />
           </div>
         )}
-      </div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {filteredFriends.map((friend) => (
-            <li key={friend.email}>
-              <Link href={`/info?email=${friend.email}`}>
-                <h2>{friend.name}</h2>
-              </Link>
-              <p>Email: {friend.email}</p>
-              <p>Phone: {friend.phoneNumber}</p>
-              {friend.friendStatus != null && (
-                <p>Friend Status: {friend.friendStatus}</p>)}
-            </li>
-          ))}
-        </ul>)}
-      <div>
-        {pageButtons.map((page) => (
-          <button key={page} onClick={() => goToPage(page)}>{page}</button>
-        ))}
       </div>
     </Layout>
   );

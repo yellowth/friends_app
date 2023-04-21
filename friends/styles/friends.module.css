@@ -1,0 +1,151 @@
+.controls {
+    margin-top: 75px;
+    text-align: center;
+}
+
+.filterMenu {
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 280px;
+}
+
+.filterHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    border-bottom: 1px solid #EAEAEA;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    padding-right: 20px;
+}
+
+.filterHeader h4 {
+    position: inherit;
+    margin: 0;
+    padding: 0;
+    padding-right: 20px;
+}
+
+.checkboxContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    margin-right: 15px;
+}
+
+.checkboxContainer label {
+    margin: 12px;
+}
+
+.applyButton {
+    display: block;
+    width: 99%;
+    text-align: center;
+    color: white;
+    background-color: #424242;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 1rem auto 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.applyButton:hover {
+    background-color: #666666;
+}
+
+.applyButton:active {
+    background-color: #212121;
+}
+
+
+.friendItem {
+    display: block;
+    outline: #D7D7D7;
+    outline-style: solid;
+    border-radius: 6px;
+    padding: 1rem;
+    text-decoration: none;
+    color: #ABABAB;
+    font-size: 14px;
+    height: 10%;
+}
+
+.friendItem h2 {
+    color: black;
+    font-size: 16px;
+}
+
+.friendHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.friendStatus {
+    font-size: 12px;
+}
+
+.closeFriendsStatus {
+    color: #3399FF;
+    background-color: #DFEFFF;
+    border-radius: 21px;
+    padding: 0.25rem 0.5rem;
+}
+
+.superCloseFriendsStatus {
+    color: #19B444;
+    background-color: #DCFFE6;
+    border-radius: 21px;
+    padding: 0.25rem 0.5rem;
+}
+
+.clearAll {
+    background: none;
+    border: none;
+    color: #D7D7D7;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.2s ease-in-out;
+}
+
+.clearAll:hover {
+    color: #a0a0a0;
+}
+
+.clearAll:active {
+    color: #777777;
+}
+
+
+.button {
+    background: none;
+    border: none;
+    color: #D7D7D7;
+    cursor: pointer;
+}
+
+.button img {
+    height: 37px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.pageButton {
+    background: none;
+    border: none;
+    color: #ABABAB;
+    cursor: pointer;
+    margin: 0 0.25rem;
+}
+
+.currentPage {
+    color: black;
+}
