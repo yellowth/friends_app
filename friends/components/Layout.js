@@ -1,5 +1,6 @@
 import styles from '@/styles/Layout.module.css';
 import Sidebar from './Sidebar';
+import React from 'react';
 
 const Layout = ({ children }) => {
     return (
@@ -10,4 +11,4 @@ const Layout = ({ children }) => {
     );
 };
 
-export default Layout;
+export default React.memo(Layout); 

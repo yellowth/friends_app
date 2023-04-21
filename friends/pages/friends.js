@@ -10,7 +10,8 @@ import filter from "../public/filter.svg";
 import filteractive from "../public/filteractive.svg";
 import divider from "../public/divider.svg";
 import close from "../public/close.svg";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa'; // Import custom arrow icons
+
 
 const useOutsideClick = (ref, buttonRef, callback) => {
   const handleClick = (e) => {
@@ -104,6 +105,19 @@ const Friends = () => {
     setSelectedFriend(null);
   };
 
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <Layout>
       <Topbar title='Friends' />
@@ -128,37 +142,39 @@ const Friends = () => {
                 <button className={styles.clearAll} onClick={clearFiltersNow}>Clear all</button>
               </div>
               {showFilterMenu && (
-                <div ref={filterMenuRef} className={styles.filterMenu}>
-                  <div className={styles.filterHeader}>
-                    <button className={styles.clearAll} onClick={clearFilters}>Clear all</button>
-                    <h4>Filter</h4>
-                    <Image src={close} alt="CloseButton" onClick={toggleFilterMenu} style={{ cursor: 'pointer' }} />
-                  </div>
-                  <div style={{ marginRight: '15px' }}>
-                    <p style={{ marginLeft: '12px', marginTop: '20px', color: '#686868', fontSize: '14px' }}>Friend Status</p>
-                  </div>
-                  <div className={styles.checkboxContainer}>
-                    <label htmlFor="closeFriends">Close Friends</label>
-                    <input
-                      type="checkbox"
-                      id="closeFriends"
-                      value="Close Friends"
-                      checked={tempSelectedFilters.includes("Close Friends")}
-                      onChange={handleFilterChange}
-                    />
-                  </div>
-                  <div className={styles.checkboxContainer}>
-                    <label htmlFor="superCloseFriends">Super Close Friends</label>
-                    <input
-                      type="checkbox"
-                      id="superCloseFriends"
-                      value="Super Close Friends"
-                      checked={tempSelectedFilters.includes("Super Close Friends")}
-                      onChange={handleFilterChange}
-                    />
-                  </div>
+                <div style={{ padding: '1rem' }}>
+                  <div ref={filterMenuRef} className={styles.filterMenu}>
+                    <div className={styles.filterHeader}>
+                      <button className={styles.clearAll} onClick={clearFilters}>Clear all</button>
+                      <h4>Filter</h4>
+                      <Image src={close} alt="CloseButton" onClick={toggleFilterMenu} style={{ cursor: 'pointer' }} />
+                    </div>
+                    <div style={{ marginRight: '15px' }}>
+                      <p style={{ marginLeft: '12px', marginTop: '20px', color: '#686868', fontSize: '14px' }}>Friend Status</p>
+                    </div>
+                    <div className={styles.checkboxContainer}>
+                      <label htmlFor="closeFriends">Close Friends</label>
+                      <input
+                        type="checkbox"
+                        id="closeFriends"
+                        value="Close Friends"
+                        checked={tempSelectedFilters.includes("Close Friends")}
+                        onChange={handleFilterChange}
+                      />
+                    </div>
+                    <div className={styles.checkboxContainer}>
+                      <label htmlFor="superCloseFriends">Super Close Friends</label>
+                      <input
+                        type="checkbox"
+                        id="superCloseFriends"
+                        value="Super Close Friends"
+                        checked={tempSelectedFilters.includes("Super Close Friends")}
+                        onChange={handleFilterChange}
+                      />
+                    </div>
 
-                  <button className={styles.applyButton} onClick={applyFilters}>Apply</button>
+                    <button className={styles.applyButton} onClick={applyFilters}>Apply</button>
+                  </div>
                 </div>
 
               )}
@@ -167,9 +183,13 @@ const Friends = () => {
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 {Array.from({ length: 7 }, (_, i) => (
                   <li style={{ marginBottom: '1rem' }}>
-                    <div key={i} className={styles.friendItem}>
-                      <div className={styles.shimmer} style={{ height: '20px', width: '50%', marginBottom: '0.5rem' }}></div>
-                      <div className={styles.shimmer} style={{ height: '15px', width: '100%', marginBottom: '0.5rem' }}></div>
+                    <div
+                      key={i}
+                      className={`${styles.preFriendItem} ${styles.friendItemLoader}`}
+                      style={{ animationDelay: `${i * 100}ms` }}
+                    >
+                      <div className={styles.shimmer} style={{ height: '20px', width: '50%', marginBottom: '1rem' }}></div>
+                      <div className={styles.shimmer} style={{ height: '15px', width: '100%', marginBottom: '1rem' }}></div>
                     </div>
                   </li>
                 ))}
@@ -198,6 +218,13 @@ const Friends = () => {
                 ))}
               </ul>)}
             <div>
+              <button
+                onClick={prevPage}
+                disabled={currentPage === 1}
+                className={styles.pageNavButton}
+              >
+                <FaArrowLeft />
+              </button>
               {pageButtons.map((page) => (
                 <button
                   key={page}
@@ -206,8 +233,14 @@ const Friends = () => {
                 >
                   {page}
                 </button>
-
               ))}
+              <button
+                onClick={nextPage}
+                disabled={currentPage === totalPages || totalPages === 0}
+                className={styles.pageNavButton}
+              >
+                <FaArrowRight />
+              </button>
             </div>
           </>
         ) : (

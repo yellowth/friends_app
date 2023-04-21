@@ -19,16 +19,17 @@
     align-items: center;
     font-size: 16px;
     border-bottom: 1px solid #EAEAEA;
-    padding-bottom: 15px;
-    margin-bottom: 10px;
     padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 15px;
+    margin-left: -1rem;
+    margin-right: -1rem;
 }
 
 .filterHeader h4 {
     position: inherit;
     margin: 0;
-    padding: 0;
-    padding-right: 20px;
+    padding-right: 10%;
 }
 
 .checkboxContainer {
@@ -66,6 +67,18 @@
     background-color: #212121;
 }
 
+.preFriendItem {
+    display: block;
+    outline: #D7D7D7;
+    outline-style: solid;
+    border-radius: 6px;
+    padding: 1rem;
+    text-decoration: none;
+    color: #ABABAB;
+    font-size: 14px;
+    height: 10%;
+    transition: all 0.2s ease-in-out;
+}
 
 .friendItem {
     display: block;
@@ -175,7 +188,20 @@
 }
 
 
-/* loading animations */
+.pageNavButton {
+    background: none;
+    border: none;
+    color: #484848;
+    cursor: pointer;
+    margin: 0 0.25rem;
+}
+
+.pageNavButton[disabled] {
+    cursor: not-allowed;
+    color: #cccccc;
+}
+
+/* animations */
 .shimmer {
     background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
     background-size: 200% 100%;
@@ -190,5 +216,31 @@
 
     100% {
         background-position: -200% 0;
+    }
+}
+
+.friendItemLoader {
+    animation: growFade 1.5s infinite alternate;
+}
+
+.friendItemLoaded {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    transition: height 1s, width 1s, opacity 1s;
+}
+
+
+@keyframes growFade {
+    from {
+        height: 100%;
+        width: 100%;
+        opacity: 1;
+    }
+
+    to {
+        height: 90%;
+        width: 90%;
+        opacity: 0;
     }
 }
