@@ -1,5 +1,5 @@
 export const fetchAllFriends = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Add this line for the delay
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // simulated 1s delay
     const response = await fetch("/api/friends");
     const data = await response.json();
     return data;
